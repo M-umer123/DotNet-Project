@@ -1,0 +1,182 @@
+﻿@model Project_1.Models.HomeTbl
+
+@{
+    ViewData["Title"] = "Add Home Info";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+
+
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
+<div class="mobile-menu-handle"></div>
+
+@* ✅ Success Message *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <p id="___successMessage___" style="
+            position: fixed;
+            top: 66px;
+            right: 20px;
+            background: #22bb33;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 9999;
+            max-width: 400px;
+            white-space: nowrap;">
+        @TempData["SuccessMessage"]
+        <span style="
+                margin-left: 15px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 18px;"
+              onclick="document.getElementById('___successMessage___').remove()">✖</span>
+    </p>
+}
+
+@* ❌ Error Message *@
+@if (TempData["ErrorMessage"] != null)
+{
+    <p id="___ErrorMessage___" style="
+            position: fixed;
+            top: 66px;
+            right: 20px;
+            background: #e60000;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 9999;
+            max-width: 400px;
+            white-space: nowrap;">
+        @TempData["ErrorMessage"]
+        <span style="
+                margin-left: 15px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 18px;"
+              onclick="document.getElementById('___ErrorMessage___').remove()">✖</span>
+    </p>
+}
+
+<style>
+    /* Style all file inputs */
+    input[type="file"] {
+        display: block;
+        width: 100%;
+        font-size: 15px;
+        color: #444;
+        cursor: pointer;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        padding: 8px 0;
+        background: transparent;
+        transition: border-color 0.3s ease;
+    }
+
+        /* Focus + hover effect (blue underline) */
+        input[type="file"]:hover,
+        input[type="file"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Hide the default "Choose File" button */
+        input[type="file"]::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+
+        /* Custom button */
+        input[type="file"]::before {
+            content: 'Choose File';
+            display: inline-block;
+            background: #85CE36;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        /* Hover effect on custom button */
+        input[type="file"]:hover::before {
+            background: #85CE36;
+        }
+
+        /* Show file name when selected */
+        input[type="file"]:valid::after {
+            content: attr(data-file-name);
+            color: #333;
+        }
+
+
+    .underlined-input {
+        border: none;
+        border-bottom: 2px solid #ccc;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        transition: all 0.3s ease;
+        width: 100%;
+        padding: 8px 0;
+    }
+
+        .underlined-input:focus {
+            border-color: #85CE36;
+            outline: none;
+        }
+
+    label {
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 4px;
+    }
+</style>
+
+<article class="content forms-page">
+
+    <div class="card card-block sameheight-item shadow-sm border-0" style="max-width: 600px; margin: 30px auto;">
+        <div class="title-block text-center mb-4">
+            <h2 style="font-weight:700" class="mt-3 text-dark text-uppercase fw-bold">Add Home Info</h2>
+        </div>
+
+        <form asp-action="add_home_info" enctype="multipart/form-data" class="px-4 pb-4">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="HomeTitle" class="form-label fw-semibold">Title</label>
+                <input asp-for="HomeTitle" class="form-control shadow-sm" placeholder="Enter home title" />
+                <span asp-validation-for="HomeTitle" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="HomeDesc" class="form-label fw-semibold">Description</label>
+                <textarea asp-for="HomeDesc" class="form-control shadow-sm" rows="3" placeholder="Enter home description"></textarea>
+                <span asp-validation-for="HomeDesc" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="HomeBgImg" class="form-label fw-semibold">Background Image</label>
+                <input  class="input_type_file" asp-for="HomeBgImg" type="file" />
+                <span asp-validation-for="HomeBgImg" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm">Save</button>
+            </div>
+        </form>
+
+        <div class="form-group text-right px-4 pb-3">
+            <a asp-action="index" asp-controller="user" class="btn btn-primary px-5 rounded-pill shadow-sm">Go To Home Page</a>
+        </div>
+    </div>
+
+</article>

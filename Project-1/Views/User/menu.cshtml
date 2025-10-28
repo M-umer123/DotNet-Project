@@ -1,0 +1,102 @@
+﻿@model List<Project_1.Models.Menu>
+
+@{
+    ViewData["Title"] = "menu";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+
+<style>
+    /* Navbar Styling */
+    .header_section {
+        background: #000000 !important;
+        background-image: none !important;
+    }
+
+
+    .navbar-nav .nav-link {
+        color: #fff !important;
+    }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+    /* Remove hero background image from layout */
+    .hero_area .bg-box {
+        display: none !important;
+    }
+
+    .custom_nav-container .navbar-nav .nav-item .menu-section-custom {
+        color: #ffc107 !important;
+    }
+
+
+
+</style>
+<section class="food_section layout_padding">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2 class="mb-3 text-decoration d-inline-block border-bottom border-4 border-dark">Our Menu</h2>
+        </div>
+
+
+        <div class="filters-content">
+            <div class="row grid">
+
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var menu in Model)
+                    {
+                        // 🧩 Helper array for items 1–9
+                        var items = new[]
+                        {
+                                new { Img = menu.ItemImg1, Title = menu.ItemTitle1, Desc = menu.ItemDesc1, Price = menu.Item1Price },
+                                new { Img = menu.ItemImg2, Title = menu.ItemTitle2, Desc = menu.ItemDesc2, Price = menu.Item2Price },
+                                new { Img = menu.ItemImg3, Title = menu.ItemTitle3, Desc = menu.ItemDesc3, Price = menu.Item3Price },
+                                new { Img = menu.ItemImg4, Title = menu.ItemTitle4, Desc = menu.ItemDesc4, Price = menu.Item4Price },
+                                new { Img = menu.ItemImg5, Title = menu.ItemTitle5, Desc = menu.ItemDesc5, Price = menu.Item5Price },
+                                new { Img = menu.ItemImg6, Title = menu.ItemTitle6, Desc = menu.ItemDesc6, Price = menu.Item6Price },
+                                new { Img = menu.ItemImg7, Title = menu.ItemTitle7, Desc = menu.ItemDesc7, Price = menu.Item7Price },
+                                new { Img = menu.ItemImg8, Title = menu.ItemTitle8, Desc = menu.ItemDesc8, Price = menu.Item8Price },
+                                new { Img = menu.ItemImg9, Title = menu.ItemTitle9, Desc = menu.ItemDesc9, Price = menu.Item9Price }
+                                };
+
+                        foreach (var item in items)
+                        {
+                            if (!string.IsNullOrEmpty(item.Title))
+                            {
+                                <div class="col-sm-6 col-lg-4 all" style="margin-bottom:30px;">
+                                    <div class="box">
+                                        <div>
+                                            <div class="img-box">
+                                                <img class="w-100 h-100" src="~/Admin_Assets/images/@item.Img" alt="@item.Title" />
+                                            </div>
+                                            <div class="detail-box">
+                                                <h5>@item.Title</h5>
+                                                <p>@item.Desc</p>
+                                                <div class="options">
+                                                    <h6>$@item.Price</h6>
+                                                    <a href="#">
+                                                        <i class="fa text-white fs-5 fa-shopping-cart" aria-hidden="true"></i>
+
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    <p class="text-center text-muted">No menu items available.</p>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,117 @@
+﻿@* 
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<style>
+    .header_section {
+        background: #000000 !important;
+        background-image: none !important;
+    }
+
+
+
+        .navbar-nav .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+    /* Remove hero background image from layout */
+    .hero_area .bg-box {
+        /* display: none !important; */
+    }
+
+
+    body{
+        /* background: url('https://media.istockphoto.com/id/1458782106/photo/scenic-aerial-view-of-the-mountain-landscape-with-a-forest-and-the-crystal-blue-river-in.jpg?s=1024x1024&w=is&k=20&c=iPdhO2H3jeYh4UWmNlrXNmiiK04iaLykIMiD9u1yDq4=') !important; */
+      
+    }
+</style>
+
+<section class="slider_section d-flex flex-column gap-5 m-3">
+    <h1 style="font-size:60px;" class="text-center d-block m-auto text-white mb-3  ">This is heading</h1>
+    <p class="text-center d-block m-auto fs-5 text-white" style="letter-spacing:0.7px;">
+        this is para
+    </p>
+
+</section>
+
+
+</div> *@
+
+
+@model Project_1.Models.HomeTbl
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+<style>
+    .header_section {
+        background: #000000 !important;
+        background-image: none !important;
+    }
+    
+
+    .navbar-nav .nav-link:hover {
+        color: #ffc107 !important;
+    }
+
+    .hero_area .bg-box {
+        display: none !important;
+    }
+
+    @@media (max-width: 400px) {
+
+
+  .h12{
+      font-size:45px;
+  }
+
+  .para{
+      font-size:22px !important;
+  }
+
+
+
+    }
+
+    .h12 {
+        padding: 5px 20px;
+        background-color: #343a4085 !important;
+        border-radius: 8px;
+    }
+
+    body {
+        /* Default fallback if image not found */
+        background: url('/Admin_Assets/Images/default-bg.jpg') no-repeat center center/cover !important;
+    }
+
+
+
+</style>
+
+<!-- ✅ Dynamic Background Style -->
+@if (Model != null && !string.IsNullOrEmpty(Model.HomeBgImg))
+{
+    <style>
+        body {
+            background: url('/Admin_Assets/Images/@Model.HomeBgImg') no-repeat center center !important;
+            background-size:100% 100% !important;
+        width:100%;
+        height:90vh !important;
+        }
+
+     
+    </style>
+}
+
+<section class="slider_section d-flex flex-column gap-5 m-3 text-white text-center">
+    <h1 style="font-size:60px; " class="mb-3"><span class="h12 border-bottom border-light border-3">@Model?.HomeTitle</span></h1>
+
+    <p class="fs-5" style="letter-spacing:0.7px;">
+        <span class="h12 para border-3 border-light border-bottom"> @Model?.HomeDesc</span>
+    </p>
+</section>

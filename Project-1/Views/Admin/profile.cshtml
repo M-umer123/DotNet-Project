@@ -1,0 +1,130 @@
+﻿@model Project_1.Models.AdminTable
+
+@{
+    ViewData["Title"] = "Update Profile";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+@* Error Message *@
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <p id="___ErrorMessage___" style="
+                position: fixed;
+                top: 66px;
+                right: 20px;
+                background: #e60000;
+                color: #fff;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                z-index: 9999;
+                max-width: 400px;
+                white-space: nowrap;
+                ">
+        @TempData["ErrorMessage"]
+
+        <span style="
+                    margin-left: 15px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 18px;
+                " onclick="document.getElementById('___ErrorMessage___').remove()">✖</span>
+    </p>
+}
+ 
+@* Error Message *@
+
+@* Success Message *@
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <p id="___successMessage___" style="
+                    position: fixed;
+                    top: 66px;
+                    right: 20px;
+                        background: #22bb33;;
+                    color: #fff;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    z-index: 9999;
+                    max-width: 400px;
+                    white-space: nowrap;
+                    ">
+        @TempData["SuccessMessage"]
+
+        <span style="
+                    margin-left: 15px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 18px;
+                " onclick="document.getElementById('___successMessage___').remove()">✖</span>
+    </p>
+}
+
+@* Success Message *@
+
+<article class="content dashboard-page">
+
+    <div class="row sameheight-container">
+        <div class="col-12">
+
+            <div class="card card-block sameheight-item" style="height: auto; max-width: 100%; margin: 0 auto;">
+                <div class="title-block text-center">
+                    <h3 style="font-size:1.8rem;" class="title"> Update Your Profile </h3>
+                    
+                </div>
+
+                <form asp-action="Profile" method="post" role="form" style="padding: 15px;">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+                    <input type="hidden" asp-for="AdminId" />
+
+                    <div class="form-group">
+                        <label asp-for="AdminName" class="control-label">Full Name</label>
+                        <input asp-for="AdminName" class="form-control" placeholder="Enter your full name" />
+                        <span asp-validation-for="AdminName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AdminPhone" class="control-label">Phone Number</label>
+                        <input maxlength="15" asp-for="AdminPhone" type="tel" class="form-control" placeholder="Enter phone number"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                        <span asp-validation-for="AdminPhone" class="text-danger"></span>
+                    </div>
+
+
+
+                    @* <div class="form-group">
+                        <label asp-for="AdminPhone" class="control-label">Phone Number</label>
+                        <input  asp-for="AdminPhone" class="form-control" placeholder="Enter phone number"
+                               style="-moz-appearance:textfield; -webkit-appearance:textfield; appearance:textfield;" />
+                        <span asp-validation-for="AdminPhone" class="text-danger"></span>
+                    </div> *@
+
+                    <div class="form-group">
+                        <label asp-for="AdminEmail" class="control-label">Email Address</label>
+                        <input asp-for="AdminEmail" type="email" class="form-control" placeholder="Enter email" />
+                        <span asp-validation-for="AdminEmail" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between flex-wrap">
+                        <button type="submit" class="btn btn-primary mb-2">💾 Save Changes</button>
+                        <a asp-action="Index" asp-controller="Admin" class="btn btn-secondary mb-2">❌ Cancel</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</article>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

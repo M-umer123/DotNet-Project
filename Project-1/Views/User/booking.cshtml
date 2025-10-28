@@ -1,0 +1,165 @@
+﻿@model Project_1.Models.BookingTbl
+
+@{
+    ViewData["Title"] = "booking";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+@* Success Message *@
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <p id="___successMessage___" style="
+                                position: fixed;
+                                top: 66px;
+                                right: 20px;
+                                    background: #22bb33;;
+                                color: #fff;
+                                padding: 12px 20px;
+                                border-radius: 8px;
+                                font-weight: bold;
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                                z-index: 9999;
+                                max-width: 400px;
+                                white-space: nowrap;
+                                ">
+        @TempData["SuccessMessage"]
+
+        <span style="
+                        margin-left: 15px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 18px;
+                    " onclick="document.getElementById('___successMessage___').remove()">✖</span>
+    </p>
+}
+
+@* Success Message *@
+
+@* Error Message *@
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <p id="___ErrorMessage___" style="
+                        position: fixed;
+                        top: 66px;
+                        right: 20px;
+                        background: #e60000;
+                        color: #fff;
+                        padding: 12px 20px;
+                        border-radius: 8px;
+                        font-weight: bold;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                        z-index: 9999;
+                        max-width: 400px;
+                        white-space: nowrap;
+                        ">
+        @TempData["ErrorMessage"]
+
+        <span style="
+                            margin-left: 15px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: 18px;
+                        " onclick="document.getElementById('___ErrorMessage___').remove()">✖</span>
+    </p>
+}
+
+@* Error Message *@
+
+
+<style>
+    /* Navbar Styling */
+    .header_section {
+        background: #000000 !important;
+        background-image: none !important;
+    }
+
+
+    .navbar-nav .nav-link {
+        color: #fff !important;
+    }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+    /* Remove hero background image from layout */
+    .hero_area .bg-box {
+        display: none !important;
+    }
+
+    .custom_nav-container .navbar-nav .nav-item .booking-section-custom {
+        color: #ffc107 !important;
+    }
+
+
+
+
+
+    /* Ensure no gap before footer */
+
+
+
+</style>
+
+
+
+<section class="book_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>
+                Book A Table
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form_container">
+                    <form asp-action="booking" method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div>
+                            <input asp-for="BookerName" type="text" class="form-control" placeholder="Your Name" />
+                            <span asp-validation-for="BookerName" class="text-danger small"></span>
+                        </div>
+
+                        <div>
+                            <input asp-for="BookerPhone" type="text" class="form-control" placeholder="Phone Number" />
+                            <span asp-validation-for="BookerPhone" class="text-danger small"></span>
+                        </div>
+
+                        <div>
+                            <input asp-for="BookerEmail" type="email" class="form-control" placeholder="Your Email" />
+                            <span asp-validation-for="BookerEmail" class="text-danger small"></span>
+                        </div>
+
+                        <div>
+                            <select asp-for="BookerTotalPersons" class="form-control nice-select wide">
+                                <option value="" disabled selected>How many persons?</option>
+                                <option value="1">1 </option>
+                                <option value="4">4 </option>
+                                <option value="8">8</option>
+                                <option value="12">12</option>
+
+                            </select>
+                            <span asp-validation-for="BookerTotalPersons" class="text-danger small"></span>
+                        </div>
+
+                        <div>
+                            <input asp-for="BookerBookingDate" type="date" class="form-control" />
+                            <span asp-validation-for="BookerBookingDate" class="text-danger small"></span>
+                        </div>
+
+                        <div class="btn_box">
+                            <button type="submit">
+                                Book Now
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

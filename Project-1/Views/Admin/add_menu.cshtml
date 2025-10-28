@@ -1,0 +1,493 @@
+﻿@model Project_1.Models.Menu
+
+@{
+    ViewData["Title"] = "Add Menu Info";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
+
+<div class="mobile-menu-handle"></div>
+
+
+@* Success Message *@
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <p id="___successMessage___" style="
+                                position: fixed;
+                                top: 66px;
+                                right: 20px;
+                                    background: #22bb33;;
+                                color: #fff;
+                                padding: 12px 20px;
+                                border-radius: 8px;
+                                font-weight: bold;
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                                z-index: 9999;
+                                max-width: 400px;
+                                white-space: nowrap;
+                                ">
+        @TempData["SuccessMessage"]
+
+        <span style="
+                        margin-left: 15px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 18px;
+                    " onclick="document.getElementById('___successMessage___').remove()">✖</span>
+    </p>
+}
+
+@* Success Message *@
+
+@* Error Message *@
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <p id="___ErrorMessage___" style="
+                        position: fixed;
+                        top: 66px;
+                        right: 20px;
+                        background: #e60000;
+                        color: #fff;
+                        padding: 12px 20px;
+                        border-radius: 8px;
+                        font-weight: bold;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                        z-index: 9999;
+                        max-width: 400px;
+                        white-space: nowrap;
+                        ">
+        @TempData["ErrorMessage"]
+
+        <span style="
+                            margin-left: 15px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: 18px;
+                        " onclick="document.getElementById('___ErrorMessage___').remove()">✖</span>
+    </p>
+}
+
+@* Error Message *@
+
+<article class="content forms-page">
+
+<style>
+    /* Elegant Underlined Input Style */
+
+    /* Style all file inputs */
+input[type="file"] {
+  display: block;
+  width: 100%;
+  font-size: 15px;
+  color: #444;
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 8px 0;
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus + hover effect (blue underline) */
+input[type="file"]:hover,
+input[type="file"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Hide the default "Choose File" button */
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+/* Custom button */
+input[type="file"]::before {
+  content: 'Choose File';
+  display: inline-block;
+   background: #85CE36;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Hover effect on custom button */
+input[type="file"]:hover::before {
+   background: #85CE36;
+}
+
+/* Show file name when selected */
+input[type="file"]:valid::after {
+  content: attr(data-file-name);
+  color: #333;
+}
+
+
+    .underlined-input {
+        border: none;
+        border-bottom: 2px solid #ccc;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        transition: all 0.3s ease;
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    .underlined-input:focus {
+  border-color: #85CE36;
+        outline: none;
+    }
+
+    label {
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 4px;
+    }
+
+    .product-card {
+        padding: 25px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        margin-bottom: 25px;
+    }
+
+    .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    .product-card h5 {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .btn-save {
+            background-color: #85CE36;
+        color: #fff;
+        border-radius: 8px;
+        padding: 6px 14px;
+        transition: 0.3s;
+    }
+
+    .btn-save:hover {
+                background-color: #85CE36;
+    }
+
+    .title-block h3 {
+        color: #333;
+        font-weight: 600;
+    }
+
+    .section {
+        margin-bottom: 40px;
+    }
+</style>
+
+<section class="section">
+    <div class="title-block mb-4 d-flex justify-content-between text-center">
+        <h2 class="title">Add | Update Menu Items</h2>
+      <h2 class="title"><a asp-action="menu" asp-controller="user">Visit Menu Page</a></h>
+    </div>
+
+    <!-- ==================== SECTION 1 ==================== -->
+    <div class="title-block mb-3">
+        <h3 class="title">Section 1 – Products 1 & 2</h3>
+    </div>
+    <div class="row">
+        <!-- Product 1 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 1</h5>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle1">Title</label>
+                        <input asp-for="ItemTitle1" class="underlined-input" placeholder="Enter food name" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc1">Description</label>
+                        <textarea asp-for="ItemDesc1" rows="3" class="underlined-input" placeholder="Enter description"></textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg1">Image</label>
+                        <input type="file" asp-for="ItemImg1" class="underlined-input" placeholder="Image URL" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Item1Price">Price</label>
+                        <input asp-for="Item1Price" class="underlined-input" placeholder="Enter price" />
+                    </div>
+
+                    <button type="submit" class="btn btn-save">Save Product 1</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                    <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 2</h5>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle2">Title</label>
+                        <input asp-for="ItemTitle2" class="underlined-input" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc2">Description</label>
+                        <textarea asp-for="ItemDesc2" rows="3" class="underlined-input"></textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg2">Image</label>
+                        <input type="file" asp-for="ItemImg2" class="underlined-input form-input" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Item2Price">Price</label>
+                        <input asp-for="Item2Price" class="underlined-input" />
+                    </div>
+
+                    <button type="submit" class="btn btn-save">Save Product 2</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SECTION 2 ==================== -->
+    <div class="title-block mb-3 mt-4">
+        <h3 class="title">Section 2 – Products 3 & 4</h3>
+    </div>
+    <div class="row">
+        <!-- Product 3 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                    <form enctype="multipart/form-data" asp-action="add_menu" role="form">
+                    <h5>Product 3</h5>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle3">Title</label>
+                        <input asp-for="ItemTitle3" class="underlined-input" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc3">Description</label>
+                        <textarea asp-for="ItemDesc3" rows="3" class="underlined-input"></textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg3">Image</label>
+                        <input type="file" asp-for="ItemImg3" class="underlined-input" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Item3Price">Price</label>
+                        <input asp-for="Item3Price" class="underlined-input" />
+                    </div>
+
+                    <button type="submit" class="btn btn-save">Save Product 3</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                    <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 4</h5>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle4">Title</label>
+                        <input asp-for="ItemTitle4" class="underlined-input" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc4">Description</label>
+                        <textarea asp-for="ItemDesc4" rows="3" class="underlined-input"></textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg4">Image</label>
+                        <input type="file" asp-for="ItemImg4" class="underlined-input" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Item4Price">Price</label>
+                        <input asp-for="Item4Price" class="underlined-input" />
+                    </div>
+
+                    <button type="submit" class="btn btn-save">Save Product 4</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SECTION 3 ==================== -->
+    <div class="title-block mb-3 mt-4">
+        <h3 class="title">Section 3 – Products 5 to 9</h3>
+    </div>
+    <div class="row">
+        <!-- Product 5 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                    <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 5</h5>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle5">Title</label>
+                        <input asp-for="ItemTitle5" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc5">Description</label>
+                        <textarea asp-for="ItemDesc5" rows="3" class="underlined-input"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg5">Image</label>
+                        <input type="file" asp-for="ItemImg5" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Item5Price">Price</label>
+                        <input asp-for="Item5Price" class="underlined-input" />
+                    </div>
+                    <button type="submit" class="btn btn-save">Save Product 5</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                    <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 6</h5>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle6">Title</label>
+                        <input asp-for="ItemTitle6" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc6">Description</label>
+                        <textarea asp-for="ItemDesc6" rows="3" class="underlined-input"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg6">Image</label>
+                        <input type="file" asp-for="ItemImg6" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Item6Price">Price</label>
+                        <input asp-for="Item6Price" class="underlined-input" />
+                    </div>
+                    <button type="submit" class="btn btn-save">Save Product 6</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                    <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 7</h5>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle7">Title</label>
+                        <input asp-for="ItemTitle7" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc7">Description</label>
+                        <textarea asp-for="ItemDesc7" rows="3" class="underlined-input"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg7">Image</label>
+                        <input type="file" asp-for="ItemImg7" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Item7Price">Price</label>
+                        <input asp-for="Item7Price" class="underlined-input" />
+                    </div>
+                    <button type="submit" class="btn btn-save">Save Product 7</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 8</h5>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle8">Title</label>
+                        <input asp-for="ItemTitle8" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc8">Description</label>
+                        <textarea asp-for="ItemDesc8" rows="3" class="underlined-input"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg8">Image</label>
+                        <input type="file" asp-for="ItemImg8" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Item8Price">Price</label>
+                        <input asp-for="Item8Price" class="underlined-input" />
+                    </div>
+                    <button type="submit" class="btn btn-save">Save Product 8</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product 9 -->
+        <div class="col-md-6">
+            <div class="product-card">
+                    <form asp-action="add_menu" enctype="multipart/form-data" role="form">
+                    <h5>Product 9</h5>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemTitle9">Title</label>
+                        <input asp-for="ItemTitle9" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemDesc9">Description</label>
+                        <textarea asp-for="ItemDesc9" rows="3" class="underlined-input"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ItemImg9">Image</label>
+                        <input type="file" asp-for="ItemImg9" class="underlined-input" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Item9Price">Price</label>
+                        <input asp-for="Item9Price" class="underlined-input" />
+                    </div>
+                    <button type="submit" class="btn btn-save">Save Product 9</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+</article>
+
+
+<script>
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                this.setAttribute('data-file-name', this.files[0].name);
+            } else {
+                this.removeAttribute('data-file-name');
+            }
+        });
+    });
+</script>

@@ -1,0 +1,302 @@
+﻿@{
+    var adminId = Context.Session.GetInt32("AdminId");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project-1</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.html">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="~/Admin_Assets/css/vendor.css">
+    <link rel="stylesheet" href="~/Admin_Assets/css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+    <!-- Theme initialization -->
+    <script>
+        var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+            {};
+        var themeName = themeSettings.themeName || '';
+        if (themeName) {
+            document.write('<link rel="stylesheet" id="theme-style" href="~/Admin_Assets/css/app-' + themeName + '.css">');
+        }
+        else {
+            document.write('<link rel="stylesheet" id="theme-style" href="~/Admin_Assets/css/app.css">');
+        }
+    </script>
+
+</head>
+<body class="loaded">
+
+    <div class="main-wrapper">
+
+    <div class="app" id="app">
+
+        <header class="header">
+            <div class="header-block header-block-collapse d-lg-none d-xl-none">
+                <button class="collapse-btn" id="sidebar-collapse-btn">
+                    @* <i class="fa fa-bars"></i> *@
+                        <svg style="margin-top: 10px; width: 3rem; height: 2rem;" xmlns="http://www.w3.org/2000/svg"  fill="gray" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                        </svg>
+                </button>
+            </div>
+            <div class="header-block header-block-search">
+                <form role="search">
+                    <div class="input-container">
+                        <i class="fa fa-search"></i>
+                            <input id="globalSearchBox" type="search" placeholder="Search">
+                            <div id="searchError">No results found!</div>
+                        <div class="underline"></div>
+                    </div>
+                </form>
+            </div>
+          
+            <div class="header-block header-block-nav">
+                <ul class="nav-profile">
+                   
+                    <li class="profile dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                          
+                                <span class="name">
+                                    @if (Context.Session.GetString("AdminName") != null)
+                                    {
+
+                                        @Context.Session.GetString("AdminName")
+                                        
+                                    }
+                                    else
+                                    {
+                                        <text>No admin logged in</text>
+                                    }
+                                </span>
+
+                            </a>
+                        <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" asp-route-id="@adminId" asp-action="profile" asp-controller="admin">
+                                <i class="fa fa-user icon"></i> Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-action="logout" asp-controller="admin">
+                                <i class="fa fa-power-off icon"></i> Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <aside class="sidebar">
+            <div class="sidebar-container">
+                <div class="sidebar-header">
+                    <div class="brand">
+                        <div class="logo">
+                            <span class="l l1"></span>
+                            <span class="l l2"></span>
+                            <span class="l l3"></span>
+                            <span class="l l4"></span>
+                            <span class="l l5"></span>
+                            </div> Admin Dashboard
+                        
+                    </div>
+                </div>
+                <nav class="menu">
+                    <ul class="sidebar-menu metismenu" id="sidebar-menu">
+                        <li class="active">
+                            <a asp-action="index" asp-controller="admin">
+                                <i class="fa fa-home"></i> Dashboard
+                            </a>
+                        </li>
+                      
+                        @* <li>
+                            <a href="#">
+                                <i class="fa fa-area-chart"></i> Pages
+                                <i class="fa arrow"></i>
+                            </a>
+                            <ul class="sidebar-nav collapse" aria-expanded="false">
+                                <li>
+                                    <a asp-action="add_home_info" asp-controller="admin"> Home Page </a>
+                                </li>
+                                <li>
+                                    <a asp-action="about_form" asp-controller="admin"> About Page </a>
+                                </li>
+                                   <li>
+                                    <a asp-action="add_menu" asp-controller="admin"> Menu Page </a>
+                                </li>
+
+                            </ul>
+                        </li> *@
+
+                            <li>
+                                <a asp-action="add_home_info" asp-controller="admin"> 
+                                 
+                                    <i class="fa fa-pencil-square-o"></i>  Home Page
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-action="about_form" asp-controller="admin"> 
+                                    <i class="fa fa-pencil-square-o"></i> About Page
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-action="add_menu" asp-controller="admin">
+                                    <i class="fa fa-pencil-square-o"></i> Add Menu 
+                                </a>
+                            </li>
+                       
+                        <li>
+                            <a asp-action="all_bookings" asp-controller="admin">
+                                <i class="fa fa-pencil-square-o"></i> All Bookings
+                            </a>
+                        </li>
+                       
+                </ul>
+            </footer>
+        </aside>
+
+            <div class="sidebar-overlay" id="sidebar-overlay"></div>
+            <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
+            <div class="mobile-menu-handle"></div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+
+
+
+
+            <footer class="footer">
+           
+
+                <div class="footer-block author d-block m-auto">
+                    <ul class="">
+                        <li class="">
+                            created by
+                            <p class="text-muted">Muhammad Umer</p>
+                        </li>
+                        <li>
+                            <p>&copy; <script>document.write(new Date().getFullYear());</script> All rights reserved.</p>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
+
+
+   </div>
+   </div>
+
+
+
+    <div class="ref" id="ref">
+        <div class="color-primary"></div>
+        <div class="chart">
+            <div class="color-primary"></div>
+            <div class="color-secondary"></div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.slim.min.js"></script>
+    <script src="~/Admin_Assets/js/vendor.js"></script>
+    <script src="~/Admin_Assets/js/app.js"></script>
+    <script src="~/Admin_Assets/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(function () {
+            $('#sidebar-menu').metisMenu();
+        });
+    </script>
+
+
+
+
+
+    <script>
+        (function(i, s, o, g, r, a, m)
+        {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function()
+            {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '../../www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-80463319-4', 'auto');
+        ga('send', 'pageview');
+
+
+          $(document).ready(function () {
+            $("#globalSearchBox").on("keyup", function () {
+                var value = $(this).val().toLowerCase().trim();
+                var contentArea = $("main"); // Only search in main content
+                var found = false;
+
+                // Remove old highlights
+                contentArea.find(".highlight").each(function () {
+                    $(this).replaceWith($(this).text());
+                });
+
+                // If search is empty, clear error and stop
+                if (value === "") {
+                    $("#searchError").hide();
+                    return;
+                }
+
+                // Search and highlight matches
+                contentArea.find("*:not(script):not(style)").each(function () {
+                    if ($(this).children().length === 0) {
+                        var text = $(this).text();
+                        var regex = new RegExp("(" + value + ")", "gi");
+                        if (regex.test(text)) {
+                            found = true;
+                            $(this).html(text.replace(regex, "<span class='highlight'>$1</span>"));
+                        }
+                    }
+                });
+
+                // Show error if nothing found
+                if (!found) {
+                    $("#searchError").show();
+                } else {
+                    $("#searchError").hide();
+                }
+            });
+        });
+
+
+    </script>
+
+
+   
+
+
+ 
+
+   
+
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

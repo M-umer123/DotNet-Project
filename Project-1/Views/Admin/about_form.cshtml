@@ -1,0 +1,121 @@
+﻿@model Project_1.Models.AboutTbl
+
+@{
+    ViewData["Title"] = "about_form";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
+
+<div class="mobile-menu-handle"></div>
+
+
+@* Success Message *@
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <p id="___successMessage___" style="
+                            position: fixed;
+                            top: 66px;
+                            right: 20px;
+                                background: #22bb33;;
+                            color: #fff;
+                            padding: 12px 20px;
+                            border-radius: 8px;
+                            font-weight: bold;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                            z-index: 9999;
+                            max-width: 400px;
+                            white-space: nowrap;
+                            ">
+        @TempData["SuccessMessage"]
+
+        <span style="
+                    margin-left: 15px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 18px;
+                " onclick="document.getElementById('___successMessage___').remove()">✖</span>
+    </p>
+}
+
+@* Success Message *@
+
+@* Error Message *@
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <p id="___ErrorMessage___" style="
+                    position: fixed;
+                    top: 66px;
+                    right: 20px;
+                    background: #e60000;
+                    color: #fff;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    z-index: 9999;
+                    max-width: 400px;
+                    white-space: nowrap;
+                    ">
+        @TempData["ErrorMessage"]
+
+        <span style="
+                        margin-left: 15px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 18px;
+                    " onclick="document.getElementById('___ErrorMessage___').remove()">✖</span>
+    </p>
+}
+
+@* Error Message *@
+
+<article class="content forms-page">
+
+
+<div class="card  card-block sameheight-item shadow-sm border-0" style="max-width: 600px; margin: 30px auto;">
+    <div class="title-block text-center mb-4">
+      
+        <h2 style="font-weight:700" class=" mt-3 text-dark text-uppercase fw-bold">Add About Info</h2>
+    </div>
+
+    <form asp-action="about_form" class="px-4 pb-4">
+            @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="form-group mb-3">
+            <label asp-for="AboutTitle" class="form-label fw-semibold">Title</label>
+            <input asp-for="AboutTitle" class="form-control shadow-sm" placeholder="Enter about section title" />
+            <span asp-validation-for="AboutTitle" class="text-danger small"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="AboutDesc" class="form-label fw-semibold">Description</label>
+            <textarea asp-for="AboutDesc" class="form-control shadow-sm" rows="3" placeholder="Enter description"></textarea>
+            <span asp-validation-for="AboutDesc" class="text-danger small"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <label asp-for="AboutBtnText" class="form-label fw-semibold">Button Text</label>
+            <input asp-for="AboutBtnText" class="form-control shadow-sm" placeholder="Enter button label" />
+            <span asp-validation-for="AboutBtnText" class="text-danger small"></span>
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm">Save</button>
+        </div>
+
+    </form>
+            <div class="form-group text-right">
+                <a asp-action="about" asp-controller="user" class="btn btn-primary px-5 rounded-pill shadow-sm">Go To About Page</a>
+            </div>
+</div>
+
+  
+
+</div>
+
+

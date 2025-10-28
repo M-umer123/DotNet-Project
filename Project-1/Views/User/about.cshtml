@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Project_1.Models.AboutTbl>
+
+@{
+    ViewData["Title"] = "About Page";
+    Layout = "~/Views/Shared/_User_Layout.cshtml";
+}
+
+
+<style>
+    /* Navbar Styling */
+    .header_section {
+        background: #000000 !important;
+        background-image: none !important;
+    }
+
+
+    .navbar-nav .nav-link {
+        color: #fff !important;
+    }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+    /* Remove hero background image from layout */
+    .hero_area .bg-box {
+        display: none !important;
+    }
+
+    .custom_nav-container .navbar-nav .nav-item .about-section-custom {
+        color: #ffc107 !important;
+    }
+
+
+
+
+
+    /* Ensure no gap before footer */
+
+
+ 
+</style>
+
+<!-- About Section -->
+<section style="background:#222831 !important;" class="about_section bg-dark layout_padding border-bottom border-2 border-dark">
+   <div class="container">
+        <div class="row">
+            <!-- Left Image -->
+            <div class="col-md-6">
+                <div class="img-box">
+                    <img src="~/User_Assets/images/about-img.png" alt="About Image">
+                </div>
+            </div>
+
+            <!-- Right Content -->
+            <div class="col-md-6">
+                @foreach (var item in Model)
+                {
+                    <div class="detail-box">
+                        <div class="heading_container">
+                            <h2>@item.AboutTitle</h2>
+                        </div>
+                        <p>@item.AboutDesc</p>
+                        <a href="#">
+                            @item.AboutBtnText
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+  
+</section>
+</div>
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Project_1.Models.BookingTbl>
+
+@{
+    ViewData["Title"] = "all_bookings";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+<article class="content forms-page">
+
+<div class="card">
+    <div class="card-block">
+        <div class="card-title-block">
+            <h3 class="title"> All Bookings </h3>
+        </div>
+
+        <section class="example">
+            <div class="table-responsive">
+            <table class="table text-center table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>@Html.DisplayNameFor(model => model.BookerName)</th>
+                        <th>@Html.DisplayNameFor(model => model.BookerPhone)</th>
+                        <th>@Html.DisplayNameFor(model => model.BookerEmail)</th>
+                        <th>@Html.DisplayNameFor(model => model.BookerTotalPersons)</th>
+                        <th>@Html.DisplayNameFor(model => model.BookerBookingDate)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int count = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@count</th>
+                                <td>@item.BookerName</td>
+                                <td>@item.BookerPhone</td>
+                                <td>@item.BookerEmail</td>
+                                <td>@item.BookerTotalPersons</td>
+                                <td>@item.BookerBookingDate.ToString()</td>
+                                <td>
+                                  
+                                    <a asp-action="booking_delete" asp-controller="admin" asp-route-id="@item.BookId" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No bookings found</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </section>
+    </div>
+</div>
+
+</article>

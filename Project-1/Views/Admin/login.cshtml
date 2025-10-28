@@ -1,0 +1,88 @@
+﻿@model Project_1.Models.AdminTable
+
+@{
+    ViewData["Title"] = "Login";
+   
+}
+
+@* Error Message *@
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <p style="
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e60000;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 9999;
+            max-width: 400px;
+            white-space: nowrap;
+            ">
+        @TempData["ErrorMessage"]
+    </p>
+}
+
+@* Error Message *@
+
+<div class="auth">
+    <div class="auth-container">
+        <div class="card">
+            <header class="auth-header">
+                <h1 class="auth-title">
+                    <div class="logo">
+                        <span class="l l1"></span>
+                        <span class="l l2"></span>
+                        <span class="l l3"></span>
+                        <span class="l l4"></span>
+                        <span class="l l5"></span>
+                    </div> Admin
+                </h1>
+            </header>
+            <div class="auth-content">
+                <p class="text-center">LOGIN TO CONTINUE</p>
+
+                <!-- ASP.NET Core Login Form -->
+                <form asp-action="Login" novalidate asp-controller="admin" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="AdminName"></label>
+                        <input asp-for="AdminName" class="form-control underlined" placeholder="Your Name" />
+                        <span asp-validation-for="AdminName" class="text-danger"></span>
+                   
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AdminPassword"></label>
+                        <input asp-for="AdminPassword" type="text" class="form-control underlined" placeholder="Your password" />
+                        <span asp-validation-for="AdminPassword" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block btn-primary">Login</button>
+                    </div>
+
+                
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
